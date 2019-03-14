@@ -1,0 +1,15 @@
+.note {
+  display: block;
+  border: solid;
+  padding: 5px;
+  margin: 10px 0;
+  transition: all 1s ease;
+}
+.note.editing {
+  border: solid red;
+  transform: scale(1.2);
+  transition: all 1s ease;
+}
+.note.deleting {
+  border: solid blue;
+}
