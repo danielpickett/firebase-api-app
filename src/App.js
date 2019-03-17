@@ -88,16 +88,17 @@ class App extends Component {
     return (
       <BrowserRouter>
       <div className="app">
-        <h1>My Notes App</h1>
         <AddNote addNote={this.handleAddNote}/>
         {this.state.notes.map( note => (
-          <Note 
-            noteContent={note.noteContent}
-            key={note.id}
-            id={note.id}
-            saveNote={this.handleSaveNote}
-            deleteNote={this.handleDeleteNote}
-          />
+          <div id={note.id} key={note.id} className="note">
+            <Note 
+              noteContent={note.noteContent}
+              key={note.id}
+              id={note.id}
+              saveNote={this.handleSaveNote}
+              deleteNote={this.handleDeleteNote}
+            />
+          </div>
         ))}
 
       </div>

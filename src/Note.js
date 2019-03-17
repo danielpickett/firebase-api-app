@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 class Note extends Component {
 
   state = {
-    editContent: this.props.noteContent
+    editContent: this.props.noteContent,
+    noteState: "normal"
   }
   
   onChange = (e) => {
@@ -26,6 +27,15 @@ class Note extends Component {
     this.props.history.push('/')
   }
 
+  componentDidMount = () => {
+    // debugger;
+    document.getElementById(this.props.id).classList.add('fizz');
+  }
+
+  thing = blah => {
+    console.log(blah);
+  }
+
 
 
   render() {
@@ -33,50 +43,49 @@ class Note extends Component {
       <>
         <Route exact path="/" render={ () => 
           <>
-            <div id={this.props.id} className="note">
-              <p>{this.props.id}</p>
-              <p>{this.props.noteContent}</p>
-              <Link to={`${this.props.id}/edit`}>edit</Link><> / </>
-              <Link to={`${this.props.id}/delete`}>delete</Link>
-            </div>
+              <div className="container">
+                <div className="content">{this.props.noteContent}</div>
+                <div className="button-group">
+                  <Link to={`${this.props.id}/edit`}>edit</Link>
+                  <Link to={`${this.props.id}/delete`}>delete</Link>
+                </div>
+              </div>
           </>
         } />
         <Route path="/:id/edit" render={ ({...props}) => {
-          
           return (
-            <div className={`note ${props.match.params.id === this.props.id ? "editing" : "disabled"}`}>
-              <form onSubmit={this.onSaveNote}>
-                <p>{this.props.id}</p>
-                
-                {props.match.params.id === this.props.id
-                ? 
-                <>
-                  <input type="text" value={this.state.editContent} onChange={this.onChange} />
-                  <span>editing: </span>
-                  
-                  <input type="submit" value="save" />
-                  <Link role="button" to="/">cancel</Link>
-                </>
-                : 
-                <p>{this.props.noteContent}</p>
-                }
-              </form>
+            <div className={`container ${props.match.params.id === this.props.id ? "editing" : "disabled"}`}>
+              {props.match.params.id === this.props.id
+              ? 
+              <>
+                <form className="content-form" onSubmit={this.onSaveNote}>
+                  <input className="content" type="text" value={this.state.editContent} onChange={this.onChange} />
+                  <div className="button-group">
+                    <span className="micro-copy">editing:</span>
+                    <input type="submit" value="save" />
+                    <Link to="/">cancel</Link>
+                  </div>                    
+                </form>
+
+              </>
+              : 
+              <div className="content">{this.props.noteContent}</div>
+              }
             </div>
           )
-
         }
 
         } />
         <Route path="/:id/delete" render={ ({...props}) => 
-          <div className={`note ${props.match.params.id === this.props.id ? "deleting" : "disabled"}`}>
-            <p>{this.props.id}</p>
-            <p>{this.props.noteContent}</p>
+          <div className={`container ${props.match.params.id === this.props.id ? "deleting" : "disabled"}`}>
+            <div className="content">{this.props.noteContent}</div>
             {props.match.params.id === this.props.id
             ? 
-            <>
-              <span>delete? </span>
-              <button onClick={this.onDeleteNote}>yes</button><span><> / </></span><Link to="/">no</Link>
-            </>
+            <div className="button-group">
+              <span className="micro-copy">delete?</span>
+              <button onClick={this.onDeleteNote}>yes</button>
+              <Link to="/">no</Link>
+            </div>
             : 
             ""
             }

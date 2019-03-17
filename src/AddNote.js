@@ -10,10 +10,12 @@ class AddNote extends Component {
 
   render() {
     return (
+      <div className="new-note-wrapper">
       <form className="new-note-form" onSubmit={this.handleSubmit}>
-        <input type="text" name="note" required />
-        <input type="submit" />
+        <input type="text" name="note" placeholder="Type new note here" required />
+        <input type="submit" value="save note"/>
       </form>
+      </div>
     )
   }
 }
