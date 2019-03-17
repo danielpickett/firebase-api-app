@@ -3,9 +3,9 @@
 :root {
   font-size: 16px;
   font-family: Ubuntu, sans-serif;
-  --button-bg: rgba(255, 255, 255, .6);
-  --button-bg-hover: rgba(255, 255, 255, .7);
-  --button-txt-color: rgba(0,0,0,.75);
+  --translucent-white: rgba(255, 255, 255, .6);
+  --translucent-white-hover: rgba(255, 255, 255, .7);
+  --translucent-black: rgba(0,0,0,.6);
 }
 html, body, #root {
   height: 100%;
@@ -22,13 +22,56 @@ html, body, #root {
 }
 
 .app {
-  background-color: rgba(0,0,0,.5);
+  background-color: var(--translucent-black);
   max-width: 500px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 20px;
 }
 
+
+/* all buttons */
+button,
+input[type="submit"], 
+a,
+a:link,
+a:visited {
+  all: unset;
+  display: inline-block;
+  padding-right: .5em;
+  padding-left: .5em;
+  margin-left: .5em;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 1000px;
+  border-width: 2px;
+  border-style: solid;
+
+  border-color: var(--translucent-white);
+  background-color: transparent;
+  color: var(--translucent-white);
+}
+button:hover,
+input[type="submit"]:hover, 
+a:hover {
+  border-color:transparent;
+  background-color: var(--translucent-white);
+  color: var(--translucent-black);
+}
+
+.button-group {
+  text-align: right;
+  margin-top: 10px;
+  height: 2em;
+  line-height: 1.4em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.note .micro-copy {
+  color: var(--translucent-white);
+}
 
 
 
@@ -94,19 +137,15 @@ form.new-note-form {
   color: transparent;
 }
 .new-note-form input[type=submit] {
-  all: unset;
-  background-color: var(--button-bg);
-  color: rgba(0,0,0,.75);
-  font-weight: 700;
+  /* all: unset; */
+  /* background-color: var(--translucent-white); */
+  /* color: rgba(0,0,0,.75); */
+  /* font-weight: 700; */
   margin: 10px;
-  border-radius: 1000px;
-  padding: 0 1em;
-  cursor: pointer;
-  transition: background-color .2s ease;
-}
-
-.new-note-form input[type=submit]:hover {
-  background-color: var(--button-bg-hover);
+  /* border-radius: 1000px; */
+  /* padding: 0 1em; */
+  /* cursor: pointer; */
+  /* transition: background-color .2s ease; */
 }
 
 
@@ -142,55 +181,24 @@ form.new-note-form {
   z-index: 2;
   padding: .25em;
 }
-.note .content {
+.note .content,
+.note textarea.content {
   font-size: 1.2em;
   color: rgba(255, 255, 255, .6);
   padding: 5px;
 }
-.note .disabled .content {
-  margin-bottom: 2.15em;
-}
 
-/* buttons */
-.note .button-group {
-  text-align: right;
-  margin-top: 10px;
-}
-.note button,
-.note input[type="submit"], 
-.note a,
-.note a:link,
-.note a:visited {
-  all: unset;
-  display: inline-block;
-  background-color: var(--button-bg);
-  border-radius: 1000px;
-  padding: 0 .5em .2em;
-  margin-left: .5em;
-  color: var(--button-txt-color);
-  font-weight: 700;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: background-color .2s ease;
-}
-.note button:hover,
-.note input[type="submit"]:hover, 
-.note a:hover {
-  background-color: var(--button-bg-hover);
-  background-color: transparent;
-  border-color: var(--button-bg);
-  color: var(--button-bg);
 
-}
-.note .micro-copy {
-  color: var(--button-bg);
-}
 
 /* note form */
-.note input[type="text"] {
+.note input[type="text"],
+.note textarea {
   background-color: rgba(255, 255, 255, .15);
   border: none;
   display: block;
   width: calc(100% - 10px);
+  min-width: calc(100% - 10px);
+  max-width: calc(100% - 10px);
   border-radius: 6px;
+  font-family: Ubuntu, sans-serif;
 }

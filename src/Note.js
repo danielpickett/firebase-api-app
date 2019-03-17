@@ -28,13 +28,14 @@ class Note extends Component {
   }
 
   componentDidMount = () => {
-    // debugger;
-    document.getElementById(this.props.id).classList.add('fizz');
+    const id = this.props.id;
+    setTimeout(function(){
+      console.log(document.getElementById(id));
+      document.getElementById(id).classList.add('fizz');
+    }, 2000);
   }
 
-  thing = blah => {
-    console.log(blah);
-  }
+
 
 
 
@@ -60,6 +61,7 @@ class Note extends Component {
               <>
                 <form className="content-form" onSubmit={this.onSaveNote}>
                   <input className="content" type="text" value={this.state.editContent} onChange={this.onChange} />
+                  {/* <textarea onFocus={() => {this.style.height = this.scrollHeight + "px"}} className="content" value={this.state.editContent} onChange={this.onChange} ></textarea> */}
                   <div className="button-group">
                     <span className="micro-copy">editing:</span>
                     <input type="submit" value="save" />
@@ -69,7 +71,10 @@ class Note extends Component {
 
               </>
               : 
-              <div className="content">{this.props.noteContent}</div>
+              <>
+                <div className="content">{this.props.noteContent}</div>
+                <div className="button-group"></div>
+              </>
               }
             </div>
           )
@@ -87,7 +92,7 @@ class Note extends Component {
               <Link to="/">no</Link>
             </div>
             : 
-            ""
+            <div className="button-group"></div>
             }
           </div>
         } />

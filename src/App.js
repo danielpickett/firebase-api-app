@@ -12,21 +12,29 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     fetch('https://my-firebase-api-app.firebaseio.com/notes.json')
     .then(res => res.json())
     .then(notes => {
       if (notes) {
-        const notesArr = Object.entries(notes).map(([id, noteContent]) => ({
+        const notesArr = Object.entries(notes).map(([id, attrs]) => ({
           id,
-          noteContent
-        }));
+          attrs
+        })).sort(function(a, b){
+          return parseInt(b.attrs.timeStamp) - parseInt(a.attrs.timeStamp);
+        });
         this.setState({ notes: notesArr })
       }
 
     });
   }
 
-  handleAddNote = (newNote) => {
+  handleAddNote = (newContent) => {
+    const timeStamp = Date.now();
+    const newNote = {
+      timeStamp: timeStamp,
+      content: newContent
+    }
     fetch('https://my-firebase-api-app.firebaseio.com/notes.json', {
       method: "POST",
       body: JSON.stringify(newNote)
@@ -39,7 +47,10 @@ class App extends Component {
             
             {
               id: noteName.name,
-              noteContent: newNote
+              attrs: {
+                timeStamp: timeStamp, 
+                content: newContent
+              }
             },
             ...prevState.notes,
           ]
@@ -49,22 +60,27 @@ class App extends Component {
   }
 
   handleSaveNote = (id, noteContent) => {
-    console.log('save', id, noteContent);
-    fetch("https://my-firebase-api-app.firebaseio.com/notes.json", {
-      body: "{\"" + id + "\":\"" + noteContent + "\"}",
+    // console.log('save', id, noteContent);
+    fetch("https://my-firebase-api-app.firebaseio.com/notes/" + id + "/.json", {
+      body: "{\"content\": \"" + noteContent + "\"}",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      method: "PATCH"
+      method: "PATCH"    
     })
     .then(res => res.json())
     .then((res) => {
+      console.log('res', res);
       this.setState(prevState => ({notes: prevState.notes.map((note) => ({
         id: note.id,
-        noteContent: (note.id === id ? res[id]: note.noteContent)
+        attrs: {
+          timeStamp: note.attrs.timeStamp,
+          content: note.id === id ? noteContent : note.attrs.content
+
+        }
+        // (note.id === id ? res[id]: note.noteContent)
       }))})
       );
-      // <Route render={() => { history.push('/' + this.props.id + '/edit') }} />
     });
   }
 
@@ -84,15 +100,15 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.notes);
+    console.log('here > ', this.state.notes);
     return (
       <BrowserRouter>
       <div className="app">
         <AddNote addNote={this.handleAddNote}/>
         {this.state.notes.map( note => (
           <div id={note.id} key={note.id} className="note">
-            <Note 
-              noteContent={note.noteContent}
+            <Note
+              noteContent={note.attrs.content}
               key={note.id}
               id={note.id}
               saveNote={this.handleSaveNote}
