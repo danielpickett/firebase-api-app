@@ -61,7 +61,6 @@ class Note extends Component {
               <>
                 <form className="content-form" onSubmit={this.onSaveNote}>
                   <input className="content" type="text" value={this.state.editContent} onChange={this.onChange} />
-                  {/* <textarea onFocus={() => {this.style.height = this.scrollHeight + "px"}} className="content" value={this.state.editContent} onChange={this.onChange} ></textarea> */}
                   <div className="button-group">
                     <span className="micro-copy">editing:</span>
                     <input type="submit" value="save" />
