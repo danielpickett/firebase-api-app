@@ -70,7 +70,7 @@ class App extends Component {
     })
     .then(res => res.json())
     .then((res) => {
-      console.log('res', res);
+      // console.log('res', res);
       this.setState(prevState => ({notes: prevState.notes.map((note) => ({
         id: note.id,
         attrs: {
@@ -100,21 +100,19 @@ class App extends Component {
   }
 
   render() {
-    console.log('here > ', this.state.notes);
+    // console.log('here > ', this.state.notes);
     return (
       <BrowserRouter>
       <div className="app">
         <AddNote addNote={this.handleAddNote}/>
         {this.state.notes.map( note => (
-          <div id={note.id} key={note.id} className="note">
-            <Note
-              noteContent={note.attrs.content}
-              key={note.id}
-              id={note.id}
-              saveNote={this.handleSaveNote}
-              deleteNote={this.handleDeleteNote}
-            />
-          </div>
+          <Note
+            noteContent={note.attrs.content}
+            key={note.id}
+            id={note.id}
+            saveNote={this.handleSaveNote}
+            deleteNote={this.handleDeleteNote}
+          />
         ))}
 
       </div>
