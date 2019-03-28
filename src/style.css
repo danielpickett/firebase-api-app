@@ -3,7 +3,6 @@
 * {
   box-sizing: border-box;
 }
-
 :root {
   font-size: 16px;
   font-family: Ubuntu, sans-serif;
@@ -11,21 +10,22 @@
   --translucent-white-hover: rgba(255, 255, 255, .7);
   --translucent-black: rgba(0,0,0,.6);
 }
-html, body, #root {
+html, body {
   height: 100%;
+  min-height: 100vh;
+}
+body {
   margin: 0;
   padding: 0;
-  position: relative;
 }
 #root {
   background: #16161d;
   background: linear-gradient(135deg, #16161d 0%,#25273a 100%);
   position: absolute;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 0 10px;
 }
-
 .app {
   background-color: var(--translucent-black);
   max-width: 500px;
@@ -64,7 +64,6 @@ a:hover {
   background-color: var(--translucent-white);
   color: var(--translucent-black);
 }
-
 .button-group {
   text-align: right;
   margin-top: 10px;
@@ -74,11 +73,9 @@ a:hover {
   align-items: center;
   justify-content: flex-end;
 }
-
 .note .micro-copy {
   color: var(--translucent-white);
 }
-
 
 
 /* New Note Form */
@@ -122,9 +119,6 @@ form.new-note-form {
   background-color: rgba(0,0,0,.85);
   z-index: 3;
 }
-
-
-
 .new-note-form input[type=text] {
   width: 100%;
   flex: 1 1 auto;
@@ -166,23 +160,17 @@ form.new-note-form {
     padding-top: 0;
     padding-bottom: .2em;
   }
-
-  
 }
 
 
 /* note */
-
 .note {
   color: rgba(255, 255, 255, .9);
   display: block;
-  /* border: solid; */
   border-radius: 10px;;
   padding: 2px;
   margin: 10px 0;
   overflow: hidden;
-  /* background-color: red; */
-  /* transition: all 1s ease; */
   position: relative;
 }
 .note::before {
@@ -211,17 +199,45 @@ form.new-note-form {
 }
 
 
-
 /* note form */
 .note input[type="text"],
 .note textarea {
   background-color: rgba(255, 255, 255, .15);
   border: none;
   display: block;
-  width: calc(100% - 10px);
-  min-width: calc(100% - 10px);
-  max-width: calc(100% - 10px);
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   border-radius: 6px;
   font-family: Ubuntu, sans-serif;
 }
 
+
+/* Animation Expiraments */
+.note {
+  transition: all .3s;
+}
+
+.note.editing.animate {
+  padding: 4px;
+  transform: scale(1.05);
+}
+.note.editing.animate .container {
+  border-radius: 6px;
+}
+
+.note.deleting.animate {
+  padding: 4px;
+  transform: scale(.95);
+}
+.note.deleting.animate .container {
+  border-radius: 6px;
+}
+
+.note.disabled {
+  opacity: 1;
+}
+
+.note.disabled.animate {
+  opacity: .5;
+}

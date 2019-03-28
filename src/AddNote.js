@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 
 class AddNote extends Component {
 
+  // Handle submission of the entire form element, so the browser can handle input value and enter-key-to-submit behavior
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addNote(e.target.elements.note.value);
-    e.target.reset();
+    this.props.addNote(e.target.elements.note.value); // Form element manages "state" ...
+    e.target.reset(); // and manages the form reset
   }
 
   render() {
