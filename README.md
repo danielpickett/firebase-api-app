@@ -1,3 +1,5 @@
+This app is LIVE on gh-page: [https://danielpickett.github.io/firebase-api-app](https://danielpickett.github.io/firebase-api-app)
+
 # Basic Notes App using React, React Router and the Firebase REST API.
 
 This app allows a user to create/save records ("notes") to the Firebase realtime database, read them back, edit them and delete them. This app doesn't implement user accounts, so I take no responsibility for what "notes" you will find when you load this app, since anyone can update it.
