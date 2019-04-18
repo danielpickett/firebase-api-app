@@ -36,7 +36,12 @@ class Note extends Component {
     const id = this.props.id;
     setTimeout(function(){
       // future improvement: add try catch
-      document.querySelector("#" + id + ".note").classList.add('animate');
+      try {
+        document.querySelector("#" + id + ".note").classList.add('animate');
+      } catch(e) {
+        console.error(e);
+      }
+      
     }, 0);
   }
 
