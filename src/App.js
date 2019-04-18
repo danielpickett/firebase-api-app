@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import './style.css';
 
@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
       <div className="app">
         <AddNote addNote={this.handleAddNote}/>
         {this.state.notes.map( note => (
@@ -115,7 +115,7 @@ class App extends Component {
           />
         ))}
       </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
